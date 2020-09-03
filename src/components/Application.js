@@ -1,37 +1,84 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
+import Appointment from "components/Appointment";
 import "components/Application.scss";
 import DayList from "./DayList"
 
 
-const days = [
+
+const appointments = [
   {
     id: 1,
-    name: "Monday",
-    spots: 2,
+    time: "12pm",
   },
   {
     id: 2,
-    name: "Tuesday",
-    spots: 5,
+    time: "1pm",
+    interview: {
+      student: "Lydia Miller-Jones",
+      interviewer: {
+        id: 1,
+        name: "Sylvia Palmer",
+        avatar: "https://i.imgur.com/LpaY82x.png",
+      }
+    }
   },
   {
     id: 3,
-    name: "Wednesday",
-    spots: 0,
+    time: "2pm",
+    interview: {
+      student: "Joe Exotic",
+      interviewer: {
+        id: 2,
+        name: "Tori Malcolm",
+        avatar: "https://i.imgur.com/Nmx0Qxo.png",
+      }
+    }
   },
+  {
+    id: 4,
+    time: "12pm",
+  },
+  {
+    id: 5,
+    time: "1pm",
+    interview: {
+      student: "Tiger Woods",
+      interviewer: {
+        id: 3,
+        name: "Mildred Nazir",
+        avatar: "https://i.imgur.com/T2WwVfS.png",
+      }
+    }
+  }
 ];
 
 export default function Application(props) {
   const [day, setDay] = useState("Monday");
+  const [days, setDays] = useState([]);
+
+
+
+  useEffect(() => {
+    axios.get("/api/days").then((response) => {
+      console.log(response.data)
+      setDays(response.data);
+    });
+  }, []); 
+
+
+
+  const appointmentList = appointments.map(appt => {
+    return (
+      <Appointment
+      key={appt.id} 
+      {...appt}
+      />
+    )
+  })
 
   return (
     <main className="layout">
-      {/* <Button danger={false} >//doing this would insert danger={false into the props which are passed into the Button runction in button.js}
-        press me // This would be the {props.children in the Button function in button.js}
-      </Button> */}
-
-      {/* {Button({danger:false, disabled:true})} */}
       <section className="sidebar">
         <img
           className="sidebar--centered"
@@ -54,6 +101,8 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {/* Replace this with the schedule elements durint the "The Scheduler" activity. */}
+        {appointmentList}
+        <Appointment key="last" time="5pm" />
       </section>
     </main>
   );
