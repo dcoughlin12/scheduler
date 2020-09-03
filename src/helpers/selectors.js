@@ -1,4 +1,4 @@
-export default function getAppointmentsForDay(state, day) {
+export function getAppointmentsForDay(state, day) {
   if (state.days.length < 1) {
     return [];
   } else {
@@ -13,3 +13,14 @@ export default function getAppointmentsForDay(state, day) {
   }
 }
 
+export function getInterview(state, interview) {
+  if (!interview) {
+    return null; 
+  } else {
+  const returnObj = {}
+  const interviewerId = interview.interviewer
+  returnObj.student = interview.student
+  returnObj.interviewer = state.interviewers[interviewerId]
+  return returnObj
+  }
+}
