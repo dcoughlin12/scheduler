@@ -13,7 +13,7 @@ export default function Application(props) {
 
   //storign all state in an object
   const [state, setState] = useState({
-    day: "Tuesday",
+    day: "Monday",
     days: [],
     appointments: {},
     interviewers: {}
@@ -21,9 +21,6 @@ export default function Application(props) {
 
  // Updates state of day
  const setDay = day => setState({ ...state, day });
- //Updates state of days
-//  const setDays = days => setState(prev => ({ ...prev, days }));
-
 
 useEffect(() => {
   Promise.all([
@@ -35,18 +32,39 @@ useEffect(() => {
   });
 }, []);
 
+  // Function to allow the local state to change when we book an interview
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    setState({...state, appointments})
+    console.log('this is where its from', id, interview);
+    console.log('Appointments', appointments)
+
+    return axios.put(`/api/appointments/${id}`, appointment)
+    .then(() => {
+      setState(prev => ({...state, appointments}))
+    }) 
+  }
+
+
   // Returns list of appts
   const appointmentList = getAppointmentsForDay(state, state.day).map(appt => {
     const interview = getInterview(state, appt.interview)
     const interviewers = getInterviewersForDay(state, state.day)
     return (
       <Appointment
-      // {...appt}
       key={appt.id} 
       id={appt.id}
       time={appt.time}
       interview={interview}
       interviewers={interviewers}
+      bookInterview={bookInterview}
       />
     )
   })
@@ -75,7 +93,6 @@ useEffect(() => {
         />
       </section>
       <section className="schedule">
-        {/* Replace this with the schedule elements durint the "The Scheduler" activity. */}
         {appointmentList}
         <Appointment key="last" time="5pm" />
       </section>
