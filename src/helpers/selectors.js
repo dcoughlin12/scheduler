@@ -1,3 +1,4 @@
+//returns array of objects for the appts given a certain day
 export function getAppointmentsForDay(state, day) {
   if (state.days.length < 1) {
     return [];
@@ -13,6 +14,7 @@ export function getAppointmentsForDay(state, day) {
   }
 }
 
+//retuns an object showing all interview details for a specific interview.
 export function getInterview(state, interview) {
   if (!interview) {
     return null; 
