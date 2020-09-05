@@ -4,7 +4,7 @@ import React, { useState } from "react";
 function useVisualMode(initial) {
   const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState([initial]);
-
+  console.log(history)
   function transition(newMode, replace = false) {
     if (!replace) {
       setHistory([...history, newMode])
