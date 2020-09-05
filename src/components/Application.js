@@ -32,23 +32,32 @@ useEffect(() => {
   });
 }, []);
 
+  function cancelInterview(id) {
+    console.log('cancelInterview')
+    const appointment = {...state.appointments[id], interview : null}
+    const appointments = {...state.appointments, [id]: appointment}
+
+    return axios.delete(`/api/appointments/${id}`, appointment)
+    .then(() => {
+      setState({...state, appointments})
+    }) 
+  }
+
   // Function to allow the local state to change when we book an interview
   function bookInterview(id, interview) {
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview }
-    };
+    const appointment = {...state.appointments[id], interview: { ...interview }};
+    console.log('APPT', appointment)
+
     const appointments = {
       ...state.appointments,
       [id]: appointment
     };
-    setState({...state, appointments})
     console.log('this is where its from', id, interview);
     console.log('Appointments', appointments)
 
     return axios.put(`/api/appointments/${id}`, appointment)
     .then(() => {
-      setState(prev => ({...state, appointments}))
+      setState({...state, appointments})
     }) 
   }
 
@@ -65,6 +74,7 @@ useEffect(() => {
       interview={interview}
       interviewers={interviewers}
       bookInterview={bookInterview}
+      cancelInterview={cancelInterview}
       />
     )
   })

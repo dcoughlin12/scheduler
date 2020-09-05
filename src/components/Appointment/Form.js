@@ -20,6 +20,18 @@ export default function Form(props) {
       props.onCancel()
     )
   }
+
+  const validating = () => {
+    if (!name) {
+      return setError("Please fill in the student's name");
+    }
+    if (!interviewer) {
+      return setError("Please select an interviewer");
+    }
+    setError("");
+    props.onSave(name, interviewer);
+    };
+
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">

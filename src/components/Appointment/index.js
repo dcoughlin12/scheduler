@@ -29,10 +29,20 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
-   
     props.bookInterview(props.id, interview)
-    .then(() => transition(SHOW))
+      .then(() => transition(SHOW))
   }
+
+  function deleteAppt() {
+    transition(EMPTY)
+    console.log('delete Appt')
+    props.cancelInterview(props.id)
+      .then(() => {
+        console.log('deleteAppt111111111')
+
+        transition(EMPTY)})
+  }
+
 
   return (
     <article className="appointment">
@@ -42,6 +52,7 @@ export default function Appointment(props) {
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
+          onDelete={deleteAppt}
         />)}
 
       {mode === CREATE && 
