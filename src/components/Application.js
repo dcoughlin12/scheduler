@@ -1,67 +1,20 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
 import Appointment from "components/Appointment";
 import "components/Application.scss";
 import DayList from "./DayList"
 import { getInterview, getAppointmentsForDay, getInterviewersForDay } from "../helpers/selectors"
-
+import useApplicationData from "../hooks/useApplicationData";
 
 
 export default function Application(props) {
-  // const [day, setDay] = useState("Monday");
-  // const [days, setDays] = useState([]);
-
-  //storign all state in an object
-  const [state, setState] = useState({
-    day: "Monday",
-    days: [],
-    appointments: {},
-    interviewers: {}
-  });
-
- // Updates state of day
- const setDay = day => setState({ ...state, day });
-
-useEffect(() => {
-  Promise.all([
-    Promise.resolve(axios.get("/api/days")),
-    Promise.resolve(axios.get("/api/appointments")),
-    Promise.resolve(axios.get("/api/interviewers")),
-  ]).then((all) => {
-    setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }));
-  });
-}, []);
-
-  function cancelInterview(id) {
-    console.log('cancelInterview')
-    const appointment = {...state.appointments[id], interview : null}
-    const appointments = {...state.appointments, [id]: appointment}
-
-    return axios.delete(`/api/appointments/${id}`, appointment)
-    .then(() => {
-      setState({...state, appointments})
-    }) 
-  }
-
-  // Function to allow the local state to change when we book an interview
-  function bookInterview(id, interview) {
-    const appointment = {...state.appointments[id], interview: { ...interview }};
-    console.log('APPT', appointment)
-
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
-    console.log('this is where its from', id, interview);
-    console.log('Appointments', appointments)
-
-    return axios.put(`/api/appointments/${id}`, appointment)
-    .then(() => {
-      setState({...state, appointments})
-    }) 
-  }
-
-
+  // From useApplicationData.js
+  const {
+    state,
+    setDay,
+    bookInterview,
+    cancelInterview
+  } = useApplicationData();
+  
   // Returns list of appts
   const appointmentList = getAppointmentsForDay(state, state.day).map(appt => {
     const interview = getInterview(state, appt.interview)
@@ -78,7 +31,6 @@ useEffect(() => {
       />
     )
   })
-
 
   return (
     <main className="layout">
