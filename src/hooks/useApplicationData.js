@@ -10,7 +10,6 @@ export default function useApplicationData() {
     interviewers: {}
   });
 
-  console.log('INITIAL STATE', state)
    // Promise all to resolve all the api routes.
   useEffect(() => {
     Promise.all([
