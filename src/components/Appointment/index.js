@@ -52,7 +52,7 @@ export default function Appointment(props) {
 
 
   return (
-    <article className="appointment">
+    <article className="appointment" data-testid="appointment">
       <Header time={props.time} />
       {mode === EMPTY && <Empty onAdd={() => {return transition(CREATE)}} />}
       {mode === SHOW && (
@@ -86,8 +86,8 @@ export default function Appointment(props) {
          />} 
        { mode === SAVING && <Status message={SAVING} /> } 
        { mode === DELETING && <Status message={DELETING} /> } 
-       { mode === ERROR_SAVE && <Error message={"Please try again"} onClose={back}/>}  
-       { mode === ERROR_DELETE && <Error message={"Please try again"} onClose={back}/>}  
+       { mode === ERROR_SAVE && <Error message={"Unable to Save. Try again"} onClose={back}/>}  
+       { mode === ERROR_DELETE && <Error message={"Unable to Delete. Try again"} onClose={back}/>}  
     </article>
   )
 }
