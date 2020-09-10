@@ -34,7 +34,7 @@ export default function useApplicationData() {
         const days = response.data
         setState({...state, appointments, days})
       }) 
-  }
+  };
 
   // Function to allow the local state to change when we book an interview
   function bookInterview(id, interview) {
@@ -49,12 +49,11 @@ export default function useApplicationData() {
         const days = response.data
         setState({...state, appointments, days})
       }) 
-  }
+  };
   return {
     state, 
     setDay, 
     bookInterview,
     cancelInterview
-  }
-
-}
+  };
+};

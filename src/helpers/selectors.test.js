@@ -1,5 +1,7 @@
 import { getInterviewersForDay, getInterview } from "./selectors.js";
+
 const state = {
+
   days: [
     {
       id: 1,
@@ -20,6 +22,7 @@ const state = {
       interviewers: []
     }
   ],
+
   appointments: {
     "1": { id: 1, time: "12pm", interview: null },
     "2": { id: 2, time: "1pm", interview: null },
@@ -35,6 +38,7 @@ const state = {
       interview: { student: "Chad Takahashi", interviewer: 2 }
     }
   },
+
   interviewers: {
   "1": {  
     "id": 1,
@@ -48,6 +52,8 @@ const state = {
   }
 }
 };
+
+
 test.skip("getAppointmentsForDay returns an array", () => {
   const result = getAppointmentsForDay(state, "Monday");
   expect(Array.isArray(result)).toBe(true);

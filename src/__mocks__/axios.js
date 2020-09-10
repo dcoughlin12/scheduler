@@ -96,5 +96,4 @@ export default {
       data: fixtures.days[0].spots = 2
     });
   })
-
-}
+};

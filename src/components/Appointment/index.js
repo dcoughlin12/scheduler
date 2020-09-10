@@ -4,12 +4,10 @@ import Header from "./Header";
 import Show from "./Show";
 import Empty from "./Empty";
 import Form from "./Form";
-import Status from "./Status"
-import Confirm from "./Confirm"
-import Error from "./Error"
-import useVisualMode from '../../hooks/useVisualMode'
-
-
+import Status from "./Status";
+import Confirm from "./Confirm";
+import Error from "./Error";
+import useVisualMode from '../../hooks/useVisualMode';
 
 
 export default function Appointment(props) {
@@ -25,7 +23,6 @@ export default function Appointment(props) {
 
   const { mode, transition, back } = useVisualMode(props.interview ? SHOW : EMPTY);
   
-
   // Pass this function to the Form component. 
   // The Form should capture the name and interviewer and pass them to props.onSave as arguments.
   function save(name, interviewer) {
@@ -37,8 +34,8 @@ export default function Appointment(props) {
     props.bookInterview(props.id, interview)
       .then(() => transition(SHOW))
       .catch(error => transition(ERROR_SAVE))
-  }
-
+  };
+  // Deletes Appt //
   function deleteAppt(confirmationNeeded) {
     if(!confirmationNeeded)
     transition(CONFIRM)
@@ -48,8 +45,7 @@ export default function Appointment(props) {
         .then(() => transition(EMPTY))
         .catch(error => transition(ERROR_DELETE, true))
     }
-  }
-
+  };
 
   return (
     <article className="appointment" data-testid="appointment">
@@ -89,5 +85,5 @@ export default function Appointment(props) {
        { mode === ERROR_SAVE && <Error message={"Unable to Save. Try again"} onClose={back}/>}  
        { mode === ERROR_DELETE && <Error message={"Unable to Delete. Try again"} onClose={back}/>}  
     </article>
-  )
-}
+  );
+};

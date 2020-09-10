@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Appointment from "components/Appointment";
 import "components/Application.scss";
-import DayList from "./DayList"
-import { getInterview, getAppointmentsForDay, getInterviewersForDay } from "../helpers/selectors"
+import DayList from "./DayList";
+import { getInterview, getAppointmentsForDay, getInterviewersForDay } from "../helpers/selectors";
 import useApplicationData from "../hooks/useApplicationData";
 
 
@@ -30,7 +30,7 @@ export default function Application(props) {
       cancelInterview={cancelInterview}
       />
     )
-  })
+  });
 
   return (
     <main className="layout">
@@ -60,4 +60,4 @@ export default function Application(props) {
       </section>
     </main>
   );
-}
+};

@@ -2,7 +2,6 @@ import React from "react";
 
 
 export default function Empty(props) {
-  
 
   return (
     <main className="appointment__add">
@@ -13,5 +12,5 @@ export default function Empty(props) {
         onClick={props.onAdd}
       />
     </main>
-  )
-}
+  );
+};

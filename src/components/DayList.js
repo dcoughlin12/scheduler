@@ -1,7 +1,5 @@
 import React from "react";
-import DayListItem from "./DayListItem"
-// import Application from "./Application"
-
+import DayListItem from "./DayListItem";
 
 export default function DayList(props) {
   const daysMarkup = props.days.map(day => {
@@ -16,4 +14,4 @@ export default function DayList(props) {
     );
   });
   return <ul>{daysMarkup}</ul>;
-}
+};
