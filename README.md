@@ -1,5 +1,10 @@
 # Interview Scheduler
 
+Interview Scheduler is a single page application built using React. Tested with Jest and Cypress. 
+
+## Screenshots
+
+
 ## Setup
 
 Install dependencies with `npm install`.
